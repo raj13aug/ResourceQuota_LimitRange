@@ -1,0 +1,37 @@
+######## Resource Management #########
+
+######## Create namespace ########
+# kubectl create -f namespace.yaml
+
+######## Set a resource quota ########
+# kubectl create -f compute-resources.yaml --namespace=quota-example
+
+########### Check if the quota is in effect #########
+# kubectl describe quota compute-resources --namespace=quota-example
+
+############# Configuring Default Requests and Limits ###########
+# kubectl create deployment nginx --image=nginx --replicas=1 --namespace=quota-example
+
+############### look at the Pod creation ###############
+# kubectl get pods --namespace=quota-example
+
+############## Further details on Deployment ###########
+# kubectl describe deployments nginx --namespace=quota-example
+
+################  See the details of the ReplicaSet ##################
+# kubectl describe replicasets nginx-6799fc88d8  --namespace=quota-example
+
+############## Create a LimitRange #################
+# kubectl create -f limits.yaml --namespace=quota-example
+
+################## View LimitsRange resource configuration ################
+# kubectl describe limitranges --namespace=quota-example
+
+################ created Pod with a resource limit #####################
+# kubectl run nginx --image=nginx --requests=cpu=100m,memory=256Mi --limits=cpu=200m,memory=512Mi --namespace=quota-example
+
+############### look at the Pod creation ###############
+# kubectl get pods --namespace=quota-example
+
+#################### check the resource quota usage #####################
+# kubectl  describe quota --namespace=quota-example 
